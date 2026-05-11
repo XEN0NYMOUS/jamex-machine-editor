@@ -3,4 +3,6 @@ dist/
 .env
 .DS_Store
 *.log
-backend/storage/
+backend/storage/meta/
+backend/storage/processed/
+backend/storage/temp/
