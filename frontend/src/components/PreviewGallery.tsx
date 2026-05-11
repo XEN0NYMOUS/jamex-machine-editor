@@ -201,6 +201,10 @@ export default function PreviewGallery({
         )}
       </AnimatePresence>
 
+      {(expandedId || editId) && (
+        <div className="fixed inset-0 z-50 bg-black pointer-events-none" />
+      )}
+
       <ImageModal
         image={expanded}
         images={images}
@@ -212,10 +216,6 @@ export default function PreviewGallery({
         onEditBlur={handleEditBlur}
         onEditReset={handleEditReset}
       />
-
-      {(expandedId || editId) && (
-        <div className="fixed inset-0 z-40 bg-black" />
-      )}
 
       <AnimatePresence>
         {editing && (
