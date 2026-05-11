@@ -84,7 +84,6 @@ export default function ImageModal({
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
           onClick={onClose}
@@ -118,7 +117,6 @@ export default function ImageModal({
             key={image.id + (showOriginal ? '-orig' : '-proc')}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="flex max-h-full max-w-full flex-col items-center"
             onClick={(e) => e.stopPropagation()}

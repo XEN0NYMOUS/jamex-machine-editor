@@ -154,19 +154,21 @@ export default function ImageEditor({
     }
   }
 
-  function getBlurredCanvas(): HTMLCanvasElement {
-    if (!procImgRef.current || !canvasRef.current) throw new Error('not ready')
+  function getBlurredCanvas(): HTMLCanvasElement | null {
+    if (!procImgRef.current || !canvasRef.current) return null
     if (blurredRef.current) return blurredRef.current
-    const c = canvasRef.current
-    const offscreen = document.createElement('canvas')
-    offscreen.width = c.width
-    offscreen.height = c.height
-    const ctx = offscreen.getContext('2d')!
-    ctx.filter = `blur(${blurRadius}px)`
-    ctx.drawImage(procImgRef.current, 0, 0, c.width, c.height)
-    ctx.filter = 'none'
-    blurredRef.current = offscreen
-    return offscreen
+    try {
+      const c = canvasRef.current
+      const offscreen = document.createElement('canvas')
+      offscreen.width = c.width
+      offscreen.height = c.height
+      const ctx = offscreen.getContext('2d')!
+      ctx.filter = `blur(${blurRadius}px)`
+      ctx.drawImage(procImgRef.current, 0, 0, c.width, c.height)
+      ctx.filter = 'none'
+      blurredRef.current = offscreen
+      return offscreen
+    } catch { return null }
   }
 
   function paintBlurRegion(pos: { x: number; y: number }) {
@@ -174,6 +176,7 @@ export default function ImageEditor({
     if (!canvas || !procImgRef.current) return
     const ctx = canvas.getContext('2d')!
     const blurred = getBlurredCanvas()
+    if (!blurred) return
 
     ctx.save()
     ctx.beginPath()

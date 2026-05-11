@@ -213,6 +213,10 @@ export default function PreviewGallery({
         onEditReset={handleEditReset}
       />
 
+      {(expandedId || editId) && (
+        <div className="fixed inset-0 z-40 bg-black" />
+      )}
+
       <AnimatePresence>
         {editing && (
           <ImageEditor
